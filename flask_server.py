@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route("/new_heart_rate", methods=["POST"])
 def add_new_hr():
-    r = requests.get_json()
+    r = request.get_json()
     email = r["user_email"]
     age = r["user_age"]
     heart_rate = r["heart_rate"]
