@@ -1,4 +1,11 @@
-__pycache__
-env
-db
+# virtual environments
+.venv*
+*env*
+*venv*
+*.venv
+.gitignore
 
+*cache*
+*.pytest_cache
+_build/
+_build/*
