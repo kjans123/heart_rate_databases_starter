@@ -64,13 +64,13 @@ def interval_average():
     #if date_time == None:
         #date_time = datetime.datetime.now()
     time_list = get_all_times(email)
-    for i in range(time_list):
+    for i in range(len(time_list)):
         if date_time <= time_list[i]:
             final_date_index = i
             break
     heart_rate_list = get_all_rates(email)
     interval_list = []
-    for i in range(heart_rate_list):
+    for i in range(len(heart_rate_list)):
         if i <= final_date_index:
             interval_list.append(heart_rate_list[i])
         else:
