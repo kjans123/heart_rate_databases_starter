@@ -6,6 +6,12 @@ import models
 from main import add_heart_rate, create_user, print_user
 app = Flask(__name__)
 
+def get_all_rates(user_email):
+    connect("mongodb://vcm-3594.vm.duke.edu:27017/heart_rate_app")
+    user = models.User.objects.raw({"_id": user_email}).first()
+    heart_rate_list = user.heart_rate
+    return heart_rate_list
+
 @app.route("/api/heart_rate", methods=["POST"])
 def add_new_hr():
     r = request.get_json()
@@ -23,25 +29,20 @@ def add_new_hr():
     return jsonify(return_dict), 200
 
 @app.route("/api/heart_rate/<user_email>", methods=["GET"])
-def all_rates(user_email):
-    connect("mongodb://vcm-3594.vm.duke.edu:27017/heart_rate_app")
-    user = models.User.objects.raw({"_id": user_email}).first()
-    heart_rate_list = user.heart_rate
-    #all_average = st.mean(heart_rate_list)
+def disp_all_rates(user_email):
+    heart_rate_list = get_all_rates(user_email)
     return_dict = {
         "user": user_email,
         "all_heart_rates": heart_rate_list
                   }
-    return heart_rate_list
     return jsonify(return_dict)
 
 @app.route("/api/heart_rate/average/<user_email>", methods=["GET"])
 def all_average(user_email):
     import statistics as st
     import json
-    heart_rate_array = all_rates(user_email)
-    data = json.loads(heart_rate_array)
-    all_average = st.mean(data)
+    heart_rate_list = get_all_rates(user_email)
+    all_average = st.mean(heart_rate_list)
     return_dict = {
         "user": user_email,
         "average": all_average
