@@ -61,8 +61,8 @@ def interval_average():
     r = request.get_json()
     email = r["user_email"]
     date_time = r["date_time"]
-    if date_time == None:
-        date_time = datetime.datetime.now()
+    #if date_time == None:
+        #date_time = datetime.datetime.now()
     time_list = get_all_times(email)
     for i in range(time_list):
         if date_time <= time_list[i]:
