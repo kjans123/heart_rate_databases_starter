@@ -24,6 +24,13 @@ def add_new_hr():
 
 @app.route("/all_heart_rates/<name>", methods=["GET"])
 def all_rates(name):
+    import statistics as st
     connect("mongodb://vcm-3594.vm.duke.edu:27017/heart_rate_app")
     user = models.User.objects.raw({"_id": name}).first()
-    return jsonify(user.heart_rate)
+    heart_rate_list = user.heart_rate
+    all_average = st.mean(heart_rate_list)
+    return_dict = {
+        "all_heart_rates": heart_rate_list
+        "average_all_rates": all_average
+                  }
+    return jsonify(return_dict)
