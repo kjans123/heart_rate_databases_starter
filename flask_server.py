@@ -81,3 +81,4 @@ def interval_average():
         "heart_rate_average_since": str(date_time),
         "heart_rate_average": interval_average_post
                 }
+    return jsonify(return_dict)
