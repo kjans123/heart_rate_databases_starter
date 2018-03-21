@@ -32,6 +32,7 @@ def all_rates(user_email):
         "user": user_email,
         "all_heart_rates": heart_rate_list
                   }
+    return heart_rate_list
     return jsonify(return_dict)
 
 @app.route("/api/heart_rate/average/<user_email>", methods=["GET"])
