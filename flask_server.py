@@ -37,8 +37,10 @@ def all_rates(user_email):
 @app.route("/api/heart_rate/average/<user_email>", methods=["GET"])
 def all_average(user_email):
     import statistics as st
-    heart_rate_list = all_rates(user_email)
-    all_average = st.mean(heart_rate_list)
+    import json
+    heart_rate_array = all_rates(user_email)
+    data = json.loads(heart_rate_array)
+    all_average = st.mean(data)
     return_dict = {
         "user": user_email,
         "average": all_average
