@@ -21,7 +21,7 @@ def add_new_hr():
                 }
     return jsonify(return_dict), 200
 
-@app.route("all_heart_rates/<name>", methods=["GET"])
+@app.route("/all_heart_rates/<name>", methods=["GET"])
 def all_rates(name):
     connect("mongodb://vcm-3594.vm.duke.edu:27017/heart_rate_app")
     user = models.User.objects.raw({"_id": name}).first()
