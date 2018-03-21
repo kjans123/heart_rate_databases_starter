@@ -30,7 +30,7 @@ def all_rates(name):
     heart_rate_list = user.heart_rate
     all_average = st.mean(heart_rate_list)
     return_dict = {
-        "user": name
+        "user": name,
         "all_heart_rates": heart_rate_list,
         "average_all_rates": all_average
                   }
