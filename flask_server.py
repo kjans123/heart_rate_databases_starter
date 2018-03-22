@@ -67,14 +67,17 @@ def interval_average():
     date_time = datetime.datetime(input_date_time[0], input_date_time[1], input_date_time[2],
     input_date_time[3], input_date_time[4], input_date_time[5], input_date_time[6])
     time_list = get_all_times(email)
+    final_date_index = None
     for i in range(len(time_list)):
         if date_time <= time_list[i]:
             final_date_index = i
             break
+    if final_date_index == None:
+        raise ValueError("No heart rate data found since entered date")
     heart_rate_list = get_all_rates(email)
     interval_list = []
     for i in range(len(heart_rate_list)):
-        if i <= final_date_index:
+        if i >= final_date_index:
             interval_list.append(heart_rate_list[i])
         else:
             break
