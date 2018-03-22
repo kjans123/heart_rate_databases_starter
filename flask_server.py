@@ -44,14 +44,14 @@ def add_new_hr():
 def disp_all_rates(user_email):
     check_email = Check_For_User(user_email)
     if check_email.user_exists is False:
-        return jsonify(str(user_email)+ "not found"), 500
         raise LookupError(str(user_email)+ " was not found. Please re-enter")
+        return jsonify(str(user_email)+ " not found"), 500
     heart_rate_list = get_all_rates(user_email)
     return_dict = {
         "user": user_email,
         "all_heart_rates": heart_rate_list
                   }
-    return jsonify(return_dict)
+    return jsonify(return_dict), 200
 
 @app.route("/api/heart_rate/average/<user_email>", methods=["GET"])
 def all_average(user_email):
@@ -67,7 +67,7 @@ def all_average(user_email):
         "user": user_email,
         "average": all_average
                    }
-    return jsonify(return_dict)
+    return jsonify(return_dict), 200
 
 @app.route("/api/heart_rate/interval_average", methods=["POST"])
 def interval_average():
@@ -100,4 +100,4 @@ def interval_average():
             "heart_rate_average_since": str(date_time),
             "heart_rate_average": interval_average_post
                        }
-    return jsonify(return_dict)
+    return jsonify(return_dict), 200
