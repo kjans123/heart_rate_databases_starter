@@ -30,51 +30,51 @@ def validate_date_time(date_time):
         raise ValueError("year is not 4 digits long")
     else:
         check_len_year = True
-    for i in list(range(1,13)):
+    for i in list(range(1, 13)):
         if date_time[1] == i:
             check_month = True
             break
         else:
             check_month = False
-    for i in list(range(1,32)):
+    for i in list(range(1, 32)):
         if date_time[2] == i:
             check_day = True
             break
         else:
             check_day = False
-    for i in list(range(0,25)):
+    for i in list(range(0, 25)):
         if date_time[3] == i:
             check_hour = True
             break
         else:
             check_hour = False
-    for i in list(range(0,60)):
+    for i in list(range(0, 60)):
         if date_time[4] == i:
             check_min = True
             break
         else:
             check_min = False
-    for i in list(range(0,60)):
+    for i in list(range(0, 60)):
         if date_time[5] == i:
             check_sec = True
             break
         else:
             check_sec = False
-    for i in list(range(0,1000000)):
+    for i in list(range(0, 1000000)):
         if date_time[6] == i:
             check_micro = True
             break
         else:
             check_micro = False
-    if check_month != True:
+    if check_month is not True:
         raise ValueError("month is not in range 1-12")
-    if check_day != True:
+    if check_day is not True:
         raise ValueError("day is not in range 1-31")
-    if check_hour != True:
+    if check_hour is not True:
         raise ValueError("hour is not in range 0-24")
-    if check_min != True:
+    if check_min is not True:
         raise ValueError("minute is not in range 0-60")
-    if check_sec != True:
+    if check_sec is not True:
         raise ValueError("second is not in range 0-60")
-    if check_micro != True:
+    if check_micro is not True:
         raise ValueError("microsecond is not in range of 0-1000000")

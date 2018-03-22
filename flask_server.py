@@ -9,6 +9,7 @@ from check_for_user import Check_For_User
 from find_first_date import find_first_date
 app = Flask(__name__)
 
+
 def get_all_rates(user_email):
     """"function that gets all heart rates for user from mongo database
     """
@@ -17,6 +18,7 @@ def get_all_rates(user_email):
     heart_rate_list = user.heart_rate
     return heart_rate_list
 
+
 def get_all_times(user_email):
     """"function that gets all dates for user from mongo database
     """
@@ -24,6 +26,7 @@ def get_all_times(user_email):
     user = models.User.objects.raw({"_id": user_email}).first()
     time_list = user.heart_rate_times
     return time_list
+
 
 @app.route("/api/heart_rate", methods=["POST"])
 def add_new_hr():
@@ -37,7 +40,7 @@ def add_new_hr():
         return jsonify("no email input"), 400
     check_email = Check_For_User(email)
     if check_email.user_exists is False:
-        raise LookupError(str(email)+ " was not found. Please re-enter")
+        raise LookupError(str(email) + " was not found. Please re-enter")
     try:
         age = r["user_age"]
     except KeyError:
@@ -56,6 +59,7 @@ def add_new_hr():
                 }
     return jsonify(return_dict), 200
 
+
 @app.route("/api/heart_rate/<user_email>", methods=["GET"])
 def disp_all_rates(user_email):
     """"function that gets all heart rates for user from mongo
@@ -63,14 +67,15 @@ def disp_all_rates(user_email):
     """
     check_email = Check_For_User(user_email)
     if check_email.user_exists is False:
-        return jsonify(str(user_email)+ " not found"), 400
-        raise LookupError(str(user_email)+ " was not found. Please re-enter")
+        return jsonify(str(user_email) + " not found"), 400
+        raise LookupError(str(user_email) + " was not found. Please re-enter")
     heart_rate_list = get_all_rates(user_email)
     return_dict = {
         "user": user_email,
         "all_heart_rates": heart_rate_list
                   }
     return jsonify(return_dict), 200
+
 
 @app.route("/api/heart_rate/average/<user_email>", methods=["GET"])
 def all_average(user_email):
@@ -82,8 +87,8 @@ def all_average(user_email):
     import json
     check_email = Check_For_User(user_email)
     if check_email.user_exists is False:
-        return jsonify(str(user_email)+ " not found"), 400
-        raise LookupError(str(user_email)+ " was not found. Please re-enter")
+        return jsonify(str(user_email) + " not found"), 400
+        raise LookupError(str(user_email) + " was not found. Please re-enter")
     heart_rate_list = get_all_rates(user_email)
     all_average = st.mean(heart_rate_list)
     return_dict = {
@@ -91,6 +96,7 @@ def all_average(user_email):
         "average": all_average
                    }
     return jsonify(return_dict), 200
+
 
 @app.route("/api/heart_rate/interval_average", methods=["POST"])
 def interval_average():
@@ -106,7 +112,7 @@ def interval_average():
         return jsonify("no email input"), 400
     check_email = Check_For_User(email)
     if check_email.user_exists is False:
-        raise LookupError(str(email)+ " was not found. Please re-enter")
+        raise LookupError(str(email) + " was not found. Please re-enter")
     try:
         input_date_time = r["date_time"]
     except KeyError:

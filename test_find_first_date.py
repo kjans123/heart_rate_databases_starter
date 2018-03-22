@@ -12,9 +12,10 @@ def test_find_first_date():
     time_list = (init_date, tues_date, wed_date, thu_date,
                  fri_date, sat_date, sun_date)
     test_date = sat_date
-    test_heart_rate_list = [75,74,80,85,70,71,73]
+    test_heart_rate_list = [75, 74, 80, 85, 70, 71, 73]
     interval_list = find_first_date(test_date, time_list, test_heart_rate_list)
     assert interval_list == [71, 73]
+
 
 def test_correct_excp():
     from find_first_date import find_first_date
@@ -30,6 +31,7 @@ def test_correct_excp():
     time_list = (init_date, tues_date, wed_date, thu_date,
                  fri_date, sat_date, sun_date)
     test_date = datetime.datetime(2019, 12, 19)
-    test_heart_rate_list = [75,74,80,85,70,71,73]
-    with pytest.raises(ValueError, message = "Expecting ValueError"):
-        interval_list = find_first_date(test_date, time_list, test_heart_rate_list)
+    test_heart_rate_list = [75, 74, 80, 85, 70, 71, 73]
+    with pytest.raises(ValueError, message="Expecting ValueError"):
+        interval_list = find_first_date(test_date, time_list,
+                                        test_heart_rate_list)
