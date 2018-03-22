@@ -10,12 +10,16 @@ from find_first_date import find_first_date
 app = Flask(__name__)
 
 def get_all_rates(user_email):
+    """"function that gets all heart rates for user from mongo database
+    """
     connect("mongodb://vcm-3594.vm.duke.edu:27017/heart_rate_app")
     user = models.User.objects.raw({"_id": user_email}).first()
     heart_rate_list = user.heart_rate
     return heart_rate_list
 
 def get_all_times(user_email):
+    """"function that gets all dates for user from mongo database
+    """
     connect("mongodb://vcm-3594.vm.duke.edu:27017/heart_rate_app")
     user = models.User.objects.raw({"_id": user_email}).first()
     time_list = user.heart_rate_times
@@ -23,6 +27,9 @@ def get_all_times(user_email):
 
 @app.route("/api/heart_rate", methods=["POST"])
 def add_new_hr():
+    """"function that posts a new heart rate through URL to the mongo
+        database for specified user
+    """
     r = request.get_json()
     try:
         email = r["user_email"]
@@ -51,6 +58,9 @@ def add_new_hr():
 
 @app.route("/api/heart_rate/<user_email>", methods=["GET"])
 def disp_all_rates(user_email):
+    """"function that gets all heart rates for user from mongo
+        database and outputs to URL web page
+    """
     check_email = Check_For_User(user_email)
     if check_email.user_exists is False:
         return jsonify(str(user_email)+ " not found"), 400
@@ -64,6 +74,10 @@ def disp_all_rates(user_email):
 
 @app.route("/api/heart_rate/average/<user_email>", methods=["GET"])
 def all_average(user_email):
+    """"function that calculates average over all heart
+        rates from mongo database for specified user and
+        outputs to URL web page
+    """
     import statistics as st
     import json
     check_email = Check_For_User(user_email)
@@ -80,6 +94,10 @@ def all_average(user_email):
 
 @app.route("/api/heart_rate/interval_average", methods=["POST"])
 def interval_average():
+    """"function that POSTS specified date to URL web page
+        and calculates user heart rate average from that
+        specified date. Pulls heart rate and date data from mongo database.
+    """
     import statistics as st
     r = request.get_json()
     try:
