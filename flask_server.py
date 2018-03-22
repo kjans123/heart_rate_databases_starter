@@ -89,7 +89,7 @@ def interval_average():
             "heart_rate_average": interval_average_post
                        }
     except st.StatisticsError:
-        interval_average_post = heart_rate_list[len(heart_rate_list)]
+        interval_average_post = heart_rate_list[len(heart_rate_list)-1]
         return_dict = {
             "user_email": email,
             "heart_rate_average_since": str(date_time),
