@@ -81,10 +81,18 @@ def interval_average():
             interval_list.append(heart_rate_list[i])
         else:
             break
-    interval_average_post = st.mean(interval_list)
-    return_dict = {
-        "user_email": email,
-        "heart_rate_average_since": str(date_time),
-        "heart_rate_average": interval_average_post
-                  }
+    try:
+        interval_average_post = st.mean(interval_list)
+        return_dict = {
+            "user_email": email,
+            "heart_rate_average_since": str(date_time),
+            "heart_rate_average": interval_average_post
+                       }
+    except st.StatisticsError:
+        interval_average_post = heart_rate_list[len(heart_rate_list)]
+        return_dict = {
+            "user_email": email,
+            "heart_rate_average_since": str(date_time),
+            "heart_rate_average": interval_average_post
+                       }
     return jsonify(return_dict)
