@@ -84,7 +84,7 @@ def interval_average():
             "heart_rate_average": interval_average_post
                     }
         return jsonify(return_dict)
-    except ValueError:
-        print("check date list")
     except TypeError:
-        print("invalid element in date list")
+        print("check date list")
+    #except ValueError:
+        #print("invalid element in date list")
