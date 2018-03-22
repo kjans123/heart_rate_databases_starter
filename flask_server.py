@@ -25,6 +25,9 @@ def get_all_times(user_email):
 def add_new_hr():
     r = request.get_json()
     email = r["user_email"]
+    check_email = Check_For_User(email)
+    if check_email.user_exists is False:
+        raise LookupError(str(email)+ " was not found. Please re-enter")
     age = r["user_age"]
     heart_rate = r["heart_rate"]
     curr_datetime = datetime.datetime.now()
@@ -39,6 +42,9 @@ def add_new_hr():
 
 @app.route("/api/heart_rate/<user_email>", methods=["GET"])
 def disp_all_rates(user_email):
+    check_email = Check_For_User(user_email)
+    if check_email.user_exists is False:
+        raise LookupError(str(user_email)+ " was not found. Please re-enter")
     heart_rate_list = get_all_rates(user_email)
     return_dict = {
         "user": user_email,
@@ -50,6 +56,9 @@ def disp_all_rates(user_email):
 def all_average(user_email):
     import statistics as st
     import json
+    check_email = Check_For_User(user_email)
+    if check_email.user_exists is False:
+        raise LookupError(str(user_email)+ " was not found. Please re-enter")
     heart_rate_list = get_all_rates(user_email)
     all_average = st.mean(heart_rate_list)
     return_dict = {
@@ -63,6 +72,9 @@ def interval_average():
     import statistics as st
     r = request.get_json()
     email = r["user_email"]
+    check_email = Check_For_User(email)
+    if check_email.user_exists is False:
+        raise LookupError(str(email)+ " was not found. Please re-enter")
     input_date_time = r["date_time"]
     validate_date_time(input_date_time)
     date_time = datetime.datetime(input_date_time[0], input_date_time[1],
