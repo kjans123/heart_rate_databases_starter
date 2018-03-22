@@ -18,7 +18,7 @@ def find_first_date(date_time, time_list, heart_rate_list):
         if date_time <= time_list[i]:
             final_date_index = i
             break
-    if final_date_index == None:
+    if final_date_index is None:
         raise ValueError("No heart rate data found since entered date")
     interval_list = []
     for i in range(len(heart_rate_list)):
