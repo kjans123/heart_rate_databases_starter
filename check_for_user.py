@@ -28,5 +28,5 @@ class Check_For_User:
             user = models.User.objects.raw({"_id": self.input_email}).first()
             self.user_exists = True
         except:
-            print("user does not exist")
+            print((str(self.input_email) + " was not found. Please re-enter"))
             self.user_exists = False
