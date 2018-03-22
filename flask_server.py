@@ -58,7 +58,7 @@ def all_average(user_email):
 @app.route("/api/heart_rate/interval_average", methods=["POST"])
 def interval_average():
     import statistics as st
-    r = request.get_json()
+    r = requests.get("http://vcm-3594.vm.duke.edu:5000/api/heart_rate/interval_average")
     email = r["user_email"]
     date_time = r["date_time"]
     #if date_time == None:
