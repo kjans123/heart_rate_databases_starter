@@ -60,7 +60,8 @@ def interval_average():
     import statistics as st
     r = request.get_json()
     email = r["user_email"]
-    date_time = r["date_time"]
+    input_date_time = r["date_time"]
+    date_time = datetime.datetime(input_date_time)
     #if date_time == None:
         #date_time = datetime.datetime.now()
     time_list = get_all_times(email)
