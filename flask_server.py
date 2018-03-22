@@ -64,6 +64,8 @@ def interval_average():
     email = r["user_email"]
     input_date_time = r["date_time"]
     validate_date_time(input_date_time)
+    date_time = datetime.datetime(input_date_time[0], input_date_time[1], input_date_time[2],
+    input_date_time[3], input_date_time[4], input_date_time[5], input_date_time[6])
     time_list = get_all_times(email)
     for i in range(len(time_list)):
         if date_time <= time_list[i]:
