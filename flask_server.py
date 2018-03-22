@@ -44,8 +44,8 @@ def add_new_hr():
 def disp_all_rates(user_email):
     check_email = Check_For_User(user_email)
     if check_email.user_exists is False:
-        raise LookupError(str(user_email)+ " was not found. Please re-enter")
         return jsonify(str(user_email)+ " not found"), 500
+        #raise LookupError(str(user_email)+ " was not found. Please re-enter")
     heart_rate_list = get_all_rates(user_email)
     return_dict = {
         "user": user_email,
