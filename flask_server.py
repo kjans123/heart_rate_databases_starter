@@ -88,7 +88,7 @@ def interval_average():
         return jsonify("no email input"), 400
     check_email = Check_For_User(email)
     if check_email.user_exists is False:
-        raise LookupError(str(email)+ " was not found. Please re-enter")
+        raise LookupError(str(email)+ " was not found. Please re-enter"), 400
     try:
         input_date_time = r["date_time"]
     except KeyError:
