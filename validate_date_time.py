@@ -4,6 +4,9 @@ def validate_date_time(date_time):
         type_date_check = True
     else:
         raise TypeError("input date is not of list type")
+    for i in range(len(date_time)):
+        if isinstance(date_time[i], int) is False:
+            raise TypeError("list element is not int")
     len_date = len(date_time)
     if len_date == 3:
         date_time.append(0)
