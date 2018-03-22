@@ -4,6 +4,8 @@ import datetime
 from pymodm import connect
 import models
 from main import add_heart_rate, create_user, print_user
+from validate_date_time import validate_date_time
+from check_for_user import Check_For_User
 app = Flask(__name__)
 
 def get_all_rates(user_email):
@@ -61,25 +63,28 @@ def interval_average():
     r = request.get_json()
     email = r["user_email"]
     input_date_time = r["date_time"]
-    date_time = datetime.datetime(input_date_time)
-    #if date_time == None:
-        #date_time = datetime.datetime.now()
-    time_list = get_all_times(email)
-    for i in range(len(time_list)):
-        if date_time <= time_list[i]:
-            final_date_index = i
-            break
-    heart_rate_list = get_all_rates(email)
-    interval_list = []
-    for i in range(len(heart_rate_list)):
-        if i <= final_date_index:
-            interval_list.append(heart_rate_list[i])
-        else:
-            break
-    interval_average_post = st.mean(interval_list)
-    return_dict = {
-        "user_email": email,
-        "heart_rate_average_since": str(date_time),
-        "heart_rate_average": interval_average_post
-                }
-    return jsonify(return_dict)
+    try:
+        validate_date_time(input_date_time)
+        time_list = get_all_times(email)
+        for i in range(len(time_list)):
+            if date_time <= time_list[i]:
+                final_date_index = i
+                break
+        heart_rate_list = get_all_rates(email)
+        interval_list = []
+        for i in range(len(heart_rate_list)):
+            if i <= final_date_index:
+                interval_list.append(heart_rate_list[i])
+            else:
+                break
+        interval_average_post = st.mean(interval_list)
+        return_dict = {
+            "user_email": email,
+            "heart_rate_average_since": str(date_time),
+            "heart_rate_average": interval_average_post
+                    }
+        return jsonify(return_dict)
+    except ValueError:
+        print("check date list")
+    except TypeError:
+        print("invalid element in date list")
