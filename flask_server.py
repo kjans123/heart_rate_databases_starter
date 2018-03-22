@@ -6,6 +6,7 @@ import models
 from main import add_heart_rate, create_user, print_user
 from validate_date_time import validate_date_time
 from check_for_user import Check_For_User
+from find_first_date import find_first_date
 app = Flask(__name__)
 
 def get_all_rates(user_email):
@@ -69,20 +70,8 @@ def interval_average():
                                   input_date_time[4], input_date_time[5],
                                   input_date_time[6])
     time_list = get_all_times(email)
-    final_date_index = None
-    for i in range(len(time_list)):
-        if date_time <= time_list[i]:
-            final_date_index = i
-            break
-    if final_date_index == None:
-        raise ValueError("No heart rate data found since entered date")
     heart_rate_list = get_all_rates(email)
-    interval_list = []
-    for i in range(len(heart_rate_list)):
-        if i >= final_date_index:
-            interval_list.append(heart_rate_list[i])
-        else:
-            break
+    interval_list = find_first_date(date_time, time_list, heart_rate_list)
     try:
         interval_average_post = st.mean(interval_list)
         return_dict = {
