@@ -24,12 +24,21 @@ def get_all_times(user_email):
 @app.route("/api/heart_rate", methods=["POST"])
 def add_new_hr():
     r = request.get_json()
-    email = r["user_email"]
+    try:
+        email = r["user_email"]
+    except KeyError:
+        return jsonify("no email input"), 400
     check_email = Check_For_User(email)
     if check_email.user_exists is False:
         raise LookupError(str(email)+ " was not found. Please re-enter")
-    age = r["user_age"]
-    heart_rate = r["heart_rate"]
+    try:
+        age = r["user_age"]
+    except KeyError:
+        return jsonify("no age input"), 400
+    try:
+        heart_rate = r["heart_rate"]
+    except KeyError:
+        return jsonify("no heart rate input"), 400
     curr_datetime = datetime.datetime.now()
     connect("mongodb://vcm-3594.vm.duke.edu:27017/heart_rate_app")
     add_heart_rate(email, heart_rate, curr_datetime)
@@ -73,11 +82,17 @@ def all_average(user_email):
 def interval_average():
     import statistics as st
     r = request.get_json()
-    email = r["user_email"]
+    try:
+        email = r["user_email"]
+    except KeyError:
+        return jsonify("no email input"), 400
     check_email = Check_For_User(email)
     if check_email.user_exists is False:
         raise LookupError(str(email)+ " was not found. Please re-enter")
-    input_date_time = r["date_time"]
+    try:
+        input_date_time = r["date_time"]
+    except KeyError:
+        return jsonify("no date entered"), 400
     validate_date_time(input_date_time)
     date_time = datetime.datetime(input_date_time[0], input_date_time[1],
                                   input_date_time[2], input_date_time[3],
