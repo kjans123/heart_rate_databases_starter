@@ -38,6 +38,7 @@ def add_new_hr():
         email = r["user_email"]
     except KeyError:
         return jsonify("no email input"), 400
+        raise LookupError("no email input")
     check_email = Check_For_User(email)
     if check_email.user_exists is False:
         return jsonify(str(email) + " was not found. Please re-enter"), 400
@@ -46,10 +47,12 @@ def add_new_hr():
         age = r["user_age"]
     except KeyError:
         return jsonify("no age input"), 400
+        raise LookupError("no age input")
     try:
         heart_rate = r["heart_rate"]
     except KeyError:
         return jsonify("no heart rate input"), 400
+        raise LookUpError("no heart rate input")
     curr_datetime = datetime.datetime.now()
     connect("mongodb://vcm-3594.vm.duke.edu:27017/heart_rate_app")
     add_heart_rate(email, heart_rate, curr_datetime)
@@ -111,6 +114,7 @@ def interval_average():
         email = r["user_email"]
     except KeyError:
         return jsonify("no email input"), 400
+        raise LookupError("no email input")
     check_email = Check_For_User(email)
     if check_email.user_exists is False:
         return jsonify(str(email) + " was not found. Please re-enter"), 400
@@ -119,6 +123,7 @@ def interval_average():
         input_date_time = r["date_time"]
     except KeyError:
         return jsonify("no date entered"), 400
+        raise LookupError("no date entered")
     try:
         validate_date_time(input_date_time)
     except (ValueError, TypeError) as error:
