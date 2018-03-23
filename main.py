@@ -17,12 +17,14 @@ def add_heart_rate(email, heart_rate, time, age):
 
 
 def create_user(email, age, heart_rate):
-    u = models.User(email, age, [], [])
+    u = models.User(email, [], [], [])
     # create a new User instance
     u.heart_rate.append(heart_rate)
     # add initial heart rate
     u.heart_rate_times.append(datetime.datetime.now())
     # add initial heart rate time
+    u.age.append(age)
+    # add initial age
     u.save()
     # save the user to the database
 
