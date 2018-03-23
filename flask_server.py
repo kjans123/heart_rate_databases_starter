@@ -107,6 +107,8 @@ def interval_average():
     """"function that POSTS specified date to URL web page
         and calculates user heart rate average from that
         specified date. Pulls heart rate and date data from mongo database.
+        Also outputs whether or not inerval average is tachycardic
+        based on users last recorded age
     """
     import statistics as st
     from tach_detect import tach_detect
