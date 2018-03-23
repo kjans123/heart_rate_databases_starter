@@ -139,9 +139,8 @@ def interval_average():
     try:
         interval_average_post = st.mean(interval_list)
         user = models.User.objects.raw({"_id": email}).first()
-        age_list = user.age
-        last_age = age_list[len(age_list)-1]
-        tach_test = tach_detect(last_age, interval_average_post)
+        curr_age = user.age
+        tach_test = tach_detect(curr_age, interval_average_post)
         return_dict = {
             "user_email": email,
             "heart_rate_average_since": str(date_time),
@@ -151,9 +150,8 @@ def interval_average():
     except st.StatisticsError:
         interval_average_post = heart_rate_list[len(heart_rate_list)-1]
         user = models.User.objects.raw({"_id": email}).first()
-        age_list = user.age
-        last_age = age_list[len(age_list)-1]
-        tach_test = tach_detect(last_age, interval_average_post)
+        curr_age = user.age
+        tach_test = tach_detect(curr_age, interval_average_post)
         return_dict = {
             "user_email": email,
             "heart_rate_average_since": str(date_time),
