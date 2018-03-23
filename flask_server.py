@@ -157,7 +157,7 @@ def interval_average():
         return_dict = {
             "user_email": email,
             "heart_rate_average_since": str(date_time),
-            "heart_rate_average": interval_average_post
+            "heart_rate_average": interval_average_post,
             "is_heart rate_tachycardic": str(tach_test)
                        }
     return jsonify(return_dict), 200
