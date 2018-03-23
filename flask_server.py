@@ -119,7 +119,10 @@ def interval_average():
         input_date_time = r["date_time"]
     except KeyError:
         return jsonify("no date entered"), 400
-    validate_date_time(input_date_time)
+    try:
+        validate_date_time(input_date_time)
+    except (ValueError, TypeError) as error:
+        return jsonify("date entered is invalid. Please re-type."), 400
     date_time = datetime.datetime(input_date_time[0], input_date_time[1],
                                   input_date_time[2], input_date_time[3],
                                   input_date_time[4], input_date_time[5],
