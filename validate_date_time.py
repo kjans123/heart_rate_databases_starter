@@ -1,4 +1,28 @@
 def validate_date_time(date_time):
+    """"function that validates user input datetime.
+        Checks to ensure input is of list type. Checks to
+        ensure all elements are int. Check and forces list to
+        be 7 elements longs (puts 0's in for hour, minute
+        second and microsecond if none entered). Checks to
+        ensure every entered number is within proper range
+        (e.g., month is between 1 and 12).
+
+        :param date_time: takes as input the date in list format
+                          [y, m, d, hr, min, sec, microsecond]
+        :raises TypeError: raises type error if input is not list.
+                           raises type error if element is not int
+                           raises type error if list is too short
+                           or long
+        :raises ValueError: raises value error if year is not 4 digits long
+                            raises value error if month is not in proper
+                            range
+                            raises value error if day is not in proper range
+                            raises value error if hour is not in proper range
+                            raises value error if second is not in
+                            proper range
+                            raises value error if microsecond is not
+                            in proper range
+    """
     type_date = type(date_time)
     if type_date is list:
         type_date_check = True
