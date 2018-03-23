@@ -55,7 +55,7 @@ def add_new_hr():
         raise LookUpError("no heart rate input")
     curr_datetime = datetime.datetime.now()
     connect("mongodb://vcm-3594.vm.duke.edu:27017/heart_rate_app")
-    add_heart_rate(email, heart_rate, curr_datetime)
+    add_heart_rate(email, heart_rate, curr_datetime, age)
     return_dict = {
         "user_email": str(email),
         "user_age": str(age),
@@ -107,8 +107,11 @@ def interval_average():
     """"function that POSTS specified date to URL web page
         and calculates user heart rate average from that
         specified date. Pulls heart rate and date data from mongo database.
+        Also outputs whether or not inerval average is tachycardic
+        based on users last recorded age
     """
     import statistics as st
+    from tach_detect import tach_detect
     r = request.get_json()
     try:
         email = r["user_email"]
@@ -137,16 +140,24 @@ def interval_average():
     interval_list = find_first_date(date_time, time_list, heart_rate_list)
     try:
         interval_average_post = st.mean(interval_list)
+        user = models.User.objects.raw({"_id": email}).first()
+        curr_age = user.age
+        tach_test = tach_detect(curr_age, interval_average_post)
         return_dict = {
             "user_email": email,
             "heart_rate_average_since": str(date_time),
-            "heart_rate_average": interval_average_post
+            "heart_rate_average": interval_average_post,
+            "is_heart rate_tachycardic": str(tach_test)
                        }
     except st.StatisticsError:
         interval_average_post = heart_rate_list[len(heart_rate_list)-1]
+        user = models.User.objects.raw({"_id": email}).first()
+        curr_age = user.age
+        tach_test = tach_detect(curr_age, interval_average_post)
         return_dict = {
             "user_email": email,
             "heart_rate_average_since": str(date_time),
-            "heart_rate_average": interval_average_post
+            "heart_rate_average": interval_average_post,
+            "is_heart rate_tachycardic": str(tach_test)
                        }
     return jsonify(return_dict), 200

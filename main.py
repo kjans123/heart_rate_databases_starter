@@ -3,13 +3,15 @@ import models
 import datetime
 
 
-def add_heart_rate(email, heart_rate, time):
+def add_heart_rate(email, heart_rate, time, age):
     user = models.User.objects.raw({"_id": email}).first()
     # Get the first user where _id=email
     user.heart_rate.append(heart_rate)
     # Append the heart_rate to the user's list of heart rates
     user.heart_rate_times.append(time)
     # append the current time to the user's list of heart rate times
+    user.age = age
+    # update users current age
     user.save()
     # save the user to the database
 
@@ -31,6 +33,7 @@ def print_user(email):
     print(user.email)
     print(user.heart_rate)
     print(user.heart_rate_times)
+    print(user.age)
 
 if __name__ == "__main__":
     connect("mongodb://vcm-3594.vm.duke.edu:27017/heart_rate_app")
