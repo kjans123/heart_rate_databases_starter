@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 import requests
 import datetime
 from pymodm import connect
@@ -8,7 +9,7 @@ from validate_date_time import validate_date_time
 from check_for_user import Check_For_User
 from find_first_date import find_first_date
 app = Flask(__name__)
-
+CORS(app)
 
 def get_all_rates(user_email):
     """"function that gets all heart rates for user from mongo database
