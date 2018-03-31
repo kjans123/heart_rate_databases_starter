@@ -11,6 +11,7 @@ from find_first_date import find_first_date
 app = Flask(__name__)
 CORS(app)
 
+
 def get_all_rates(user_email):
     """"function that gets all heart rates for user from mongo database
     """
