@@ -75,9 +75,11 @@ def disp_all_rates(user_email):
         return jsonify(str(user_email) + " not found"), 400
         raise LookupError(str(user_email) + " was not found. Please re-enter")
     heart_rate_list = get_all_rates(user_email)
+    date_list = get_all_times(user_email)
     return_dict = {
         "user": user_email,
         "all_heart_rates": heart_rate_list
+        "all_times": date_list
                   }
     return jsonify(return_dict), 200
 
