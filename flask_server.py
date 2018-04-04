@@ -4,7 +4,7 @@ import requests
 import datetime
 from pymodm import connect
 import models
-from main import add_heart_rate, create_user, print_user
+from main import add_heart_rate, create_user, print_user, get_all_users
 from validate_date_time import validate_date_time
 from check_for_user import Check_For_User
 from find_first_date import find_first_date
@@ -28,6 +28,15 @@ def get_all_times(user_email):
     user = models.User.objects.raw({"_id": user_email}).first()
     time_list = user.heart_rate_times
     return time_list
+
+
+@app.route("/api/heart_rate/all_users", methods=["GET"])
+def get_every_user():
+    """"function that gets all users from mongo database
+    """
+    connect("mongodb://vcm-3594.vm.duke.edu:27017/heart_rate_app")
+    user_list = get_all_users()
+    return jsonify(user_list)
 
 
 @app.route("/api/heart_rate", methods=["POST"])
