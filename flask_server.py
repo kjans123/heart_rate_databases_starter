@@ -28,9 +28,9 @@ def get_all_times(user_email):
     user = models.User.objects.raw({"_id": user_email}).first()
     time_list = user.heart_rate_times
     return time_list
-    
 
-@app.route("api/heart_rate/all_users", methods=["GET"])
+
+@app.route("api/heart_rate/all_users", methods=["GET"]):
     """"function that gets all users from mongo db
     """
     connect("mongodb://vcm-3594.vm.duke.edu:27017/heart_rate_app")
