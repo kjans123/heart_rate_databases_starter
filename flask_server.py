@@ -30,7 +30,7 @@ def get_all_times(user_email):
     return time_list
 
 
-@app.route("api/heart_rate/all_users", methods=["GET"])
+@app.route("/api/heart_rate/all_users", methods=["GET"])
 def get_every_user():
     """"function that gets all users from mongo db
     """
