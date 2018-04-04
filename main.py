@@ -15,6 +15,7 @@ def add_heart_rate(email, heart_rate, time, age):
     user.save()
     # save the user to the database
 
+
 def create_user(email, age, heart_rate):
     u = models.User(email, age, [], [])
     # create a new User instance
