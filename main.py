@@ -14,6 +14,7 @@ def add_heart_rate(email, heart_rate, time, age):
     # update users current age
     user.save()
     # save the user to the database
+    
 
 def get_all_users():
     result = []
