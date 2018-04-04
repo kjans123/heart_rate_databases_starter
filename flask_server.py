@@ -32,10 +32,10 @@ def get_all_times(user_email):
 
 @app.route("/api/heart_rate/all_users", methods=["GET"])
 def get_every_user():
-    """"function that gets all users from mongo db
+    """"function that gets all users from mongo database
     """
     connect("mongodb://vcm-3594.vm.duke.edu:27017/heart_rate_app")
-    user_list = get_all_rates()
+    user_list = get_all_users()
     return jsonify(user_list)
 
 
