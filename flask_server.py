@@ -39,7 +39,7 @@ def get_every_user():
     return_dict = {
         "user_emails": user_list
                   }
-    return jsonify(return_dict)
+    return jsonify(return_dict),200
 
 
 @app.route("/api/heart_rate", methods=["POST"])
