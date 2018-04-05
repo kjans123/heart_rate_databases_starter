@@ -36,7 +36,10 @@ def get_every_user():
     """
     connect("mongodb://vcm-3594.vm.duke.edu:27017/heart_rate_app")
     user_list = get_all_users()
-    return jsonify(user_list)
+    return_dict = {
+        "user_emails": user_list
+                  }
+    return jsonify(return_dict)
 
 
 @app.route("/api/heart_rate", methods=["POST"])
